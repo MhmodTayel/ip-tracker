@@ -1,0 +1,59 @@
+h1{
+    text-align: center;
+
+}
+
+#ipaddress{
+    text-align: center;
+}
+body {
+        text-align: center;
+        padding: 10px;
+        background-image: url("./images/ip-address-back.jpg")  ;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+
+}
+
+.main-container{
+
+}
+
+.button-searchbar{
+    padding: 10px;
+}
+
+
+
+.search {
+    background: url('images/pattern-bg.png');
+    background-position: center;
+    background-size: cover;
+}
+
+.outputfields{
+    display: inline-block;
+    padding: 10px;
+    font-weight:bold;
+    margin: 20px;
+}
+.outputcontainer{
+    padding: 5px;
+
+    margin: 20px;
+}
+.btnSearch{
+
+
+}
+
+#map{
+        height: 100px;
+        padding:20px;
+        align: center;
+
+
+
+}
+
