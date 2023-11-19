@@ -41,11 +41,12 @@ function searchIP(e) {
  * @param {string} IP - The IP address to search for.
  */
 async function getGEO(IP) {
+  let data;
   try {
     const response = await fetch(
       `https://geo.ipify.org/api/v1?apiKey=at_wuvOQ7NKYsA7ReFthDnzqtIvnKo9C&ipAddress=${IP}`
     );
-    const data = await response.json();
+    data = await response.json();
 
     const {
       ip,
@@ -59,7 +60,7 @@ async function getGEO(IP) {
     // Add the searched IP to history
     addToHistory(input.value);
   } catch (error) {
-    handleFetchError('Failed to fetch geolocation information.');
+    handleFetchError(data, 'Failed to fetch geolocation information.');
   }
 }
 
@@ -85,7 +86,7 @@ function showMap(lat, lng, ip) {
       tileSize: 512,
       zoomOffset: -1,
       accessToken:
-        'pk.eyJ1IjoibWhtb2R0YXllbCIsImEiOiJja2s4dDFtd3kwcjF1MnBueDZ2ZTVjejlhIn0.LGV-zcABzaUSBOKYfWC0rA',
+        'pk.eyJ1IjoibWJlbGx5ZG8iLCJhIjoiY2tqb2E1anFmMGx2djJ2bzhpeDRkdHFyayJ9.DEAvUgh9QjI7vbAWdxHeaw',
     }
   ).addTo(mymap);
 }
@@ -132,11 +133,11 @@ function showOutput(ip, region, timezone, provider, country) {
  * @param {Error} error - The error object.
  * @param {string} message - The error message to display.
  */
-function handleFetchError(message) {
+function handleFetchError(error, message) {
   mapEl.style.display = 'none';
   output.style.display = 'none';
   errorContainer.style.display = 'block';
-  errorMessage.textContent = `${message}`;
+  errorMessage.textContent = error.messages || `${message}`;
 }
 
 // Event listeners
@@ -148,7 +149,7 @@ function addToHistory(IP) {
 
   // Check if the IP is not already in history
   if (!history.includes(IP)) {
-    history.push(IP);
+    IP && history.push(IP);
     localStorage.setItem('ipHistory', JSON.stringify(history));
 
     // Update the history section
